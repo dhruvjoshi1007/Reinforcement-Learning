@@ -45,4 +45,17 @@ def epsilon_greedy_policy(epsilon, action_probs):
 	'''
 
 	return np.random.choice(np.arange(len(action_probs)), p = action_probs)
- 
+
+
+def plot_figure(fig_id, fig_name, x_label, y_label, x, y):
+
+	plt.figure(fig_id)
+	plt.clf()
+
+	plt.title(fig_name)
+	plt.xlabel(xlabel)
+	plt.ylabel(y_label)
+
+	plt.plot(x,y)
+
+	plt.show()
