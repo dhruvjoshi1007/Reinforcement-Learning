@@ -49,6 +49,10 @@ def epsilon_greedy_policy(epsilon, action_probs):
 
 def plot_figure(fig_id, fig_name, x_label, y_label, x, y):
 
+	'''
+	Function for plotting figures
+	'''
+
 	plt.figure(fig_id)
 	plt.clf()
 
@@ -59,3 +63,32 @@ def plot_figure(fig_id, fig_name, x_label, y_label, x, y):
 	plt.plot(x,y)
 
 	plt.show()
+
+
+class ReplayMemory(object):
+
+	'''
+	Replay Memory class to allow storing transitions
+	'''
+
+	def __init__(self, capacity):
+
+		self.capacity = capacity
+		self.memory = []
+		self.position = 0
+
+	def push(self, item):
+
+		if len(self.memory) < self.capacity:
+			self.memory.append(None)
+		
+		self.memory[self.position] = item
+		self.position = (self.position + 1) % self.capacity
+
+	def sample(self, batch):
+
+		return random.sample(self.memory, batch)
+
+	def __len__(self):
+
+		return len(self.memory)
