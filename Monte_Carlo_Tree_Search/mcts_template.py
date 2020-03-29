@@ -39,8 +39,27 @@ def rollout(root):
 	state = root.root
 	action = np.argmax(estimater(state))
 	next_state = env_model.step(action)
-	root.value = simulate(next_state)
+	next_state_node = Node(next_state, curr_id, root.id)
+	root.expand(next_state_node)
+	root.value = simulate(next_state_node)
 	return root.value
+
+
+def simulate(root):
+
+	Gt = 0
+	n_sims = 0
+	env.set_state(root)
+	done = 0
+	for i in range(np.randint(5,10)):
+
+		while !done:
+
+			state, reward, done, _ = env.step(policy(state))
+			Gt += reward
+		n_sims += 1
+	return Gt/n_sims
+
 
 
 class Node():
