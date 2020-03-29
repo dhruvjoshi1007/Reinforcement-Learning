@@ -12,6 +12,12 @@ import matplotlib.pyplot as plt
 import math
 import random
 
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torch.nn.functional as F
+import torchvision.transforms as T
+
 
 def greedy(q_values):
 
@@ -92,3 +98,29 @@ class ReplayMemory(object):
 	def __len__(self):
 
 		return len(self.memory)
+
+
+class NeuralNetwork(nn.Module):
+
+	def __init__(self, nA, input_dim):
+
+		super().__init__()
+
+		self.layer1 = nn.Linear(input_dim, input_dim)
+		self.bn1 = nn.BatchNorm2d(input_dim)
+		self.layer2 = nn.Linear(input_dim, input_dim//2)
+		self.bn1 = nn.BatchNorm2d(input_dim//2)
+		self.layer3 = nn.Linear(input_dim//2, input_dim//4)
+		self.bn1 = nn.BatchNorm2d(input_dim//4)
+
+		self.output = nn.Linear(input_dim//4, nA)
+
+	def forward(self, x):
+
+		x = F.relu(self.bn1(self.layer1(x)))
+		x = F.relu(self.bn2(self.layer2(x)))
+		x = F.relu(self.bn3(self.layer3(x)))
+
+		return self.output(x)
+
+
