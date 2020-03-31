@@ -50,6 +50,7 @@ def simulate(root):
 	Gt = 0
 	n_sims = 0
 	env.set_state(root)
+	state = root.state
 	done = 0
 	for i in range(np.randint(5,10)):
 
@@ -60,11 +61,17 @@ def simulate(root):
 		n_sims += 1
 	return Gt/n_sims
 
+def backpropogate(leaf, sim_result):
 
+	par_node = leaf.parent
+	par_node.value = (par_node.value * par_node.visits + sim_result) / (par_node.visits+1)
+	par_node.visits +=1
+	if par_node.parent != None:
+		backpropogate(par_node, par_node.value)
 
 class Node():
 
-	def __init__(state, node_id, parent_id):
+	def __init__(state, parent, node_id, parent_id):
 
 		self.root = state
 		self.id = node_id
@@ -73,6 +80,7 @@ class Node():
 		self.wins = 0
 		self.lose = 0
 		self.visits = 0
+		self.parent = parent
 		self.parent_id = parent_id
 
 	def expand(child):
