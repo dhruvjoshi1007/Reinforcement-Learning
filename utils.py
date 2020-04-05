@@ -17,6 +17,18 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import torchvision.transforms as T
+import argparse
+
+
+is_ipython = 'inline' in matplotlib.get_backend()
+if is_ipython:
+	from IPython import display
+
+parser = argparse.ArgumentParser(description='args')
+
+parser.add_argument('--render', action='store_true',
+					help='render the environment')
+args = parser.parse_args()
 
 
 def greedy(q_values):
@@ -70,7 +82,12 @@ def plot_figure(fig_id, fig_name, x_label, y_label, x, y):
 
 	plt.plot(x,y)
 
-	plt.show()
+	plt.pause(0.001)
+
+	if is_ipython:
+		display.clear_output(wait=True)
+		display.display(plt.gcf())
+
 
 
 class ReplayMemory(object):
