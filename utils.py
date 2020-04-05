@@ -26,6 +26,9 @@ if is_ipython:
 
 parser = argparse.ArgumentParser(description='args')
 
+parser.add_argument('--seed', type=int, default=543, metavar='N',
+                    help='random seed (default: 543)')
+
 parser.add_argument('--render', action='store_true',
 					help='render the environment')
 args = parser.parse_args()
