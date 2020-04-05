@@ -62,6 +62,8 @@ def plot_figure(fig_id, fig_name, x_label, y_label, x, y):
 	plt.figure(fig_id)
 	plt.clf()
 
+	durations_t = torch.tensor(1, dtype = torch.float)
+
 	plt.title(fig_name)
 	plt.xlabel(xlabel)
 	plt.ylabel(y_label)
